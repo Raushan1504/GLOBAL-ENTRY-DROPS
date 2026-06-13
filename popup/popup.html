@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href ="bulma.min.css"/>
+    
+</head>
+<body >
+    
+    <div class="container m-3">
+    <h1 class="title ">Global Entries</h1>
+    <div class="field">
+        <label class="label">Status</label>
+        <span class="tag is-success has-text-white">Running</span>
+        <span class="tag is-danger has-text-white">Stopped</span>
+    </div>
+    </div>
+    <div class="container m-3">
+        <div class="field">
+            <label class="label">Location ID</label>
+            <div class="select"><select id = "locationID">
+                <option value = "los_angeles">Los Angles</option>
+                <option value = "seatle">Seatle</option>
+            </select>
+        </div>
+        </div>
+        
+        <div class="field">
+            <label class="label">Start Date</label>
+            <div class="control">
+               <input type="date" class="input" id = "startDate"/>
+            </div>
+            
+        </div>
+        <div class="field">
+            <label class="label">End Date</label>
+            <div class="control">
+               <input type="date" class="input" id = "endDate">
+            </div>
+        </div>
+    </div>
+
+    <div class="container m-3">
+        <button class = "button is-success has-text-white" id = "startButton">Save & Start</button>
+         <button class = "button is-danger has-text-white" id = "endButton">Stop</button>
+    </div>
+<script src = "popup.js"></script>
+    
+</body>
+</html>
