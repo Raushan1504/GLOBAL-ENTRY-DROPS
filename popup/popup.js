@@ -1,25 +1,38 @@
-const locationIdElement  = document.getElementById("locationID")
+// ELEMENTS
+const locationIdElement = document.getElementById("locationId");
+const startDateElement = document.getElementById("startDate");
+const endDateElement = document.getElementById("endDate");
 
-const startDateElement = document.getElementById("startDate")
-const EndDateElement = document.getElementById("endDate")
-
+// Button elements
 const startButton = document.getElementById("startButton");
 const stopButton = document.getElementById("endButton");
 
-const sendCommand = message => {
-    chrome.runtime.sendMessage(message, response => {
-        if (chrome.runtime.lastError) {
-            console.error("sendMessage failed:", chrome.runtime.lastError.message);
-        } else {
-            console.log("popup sendMessage response:", response);
-        }
-    });
+const getPrefs = () => ({
+    locationId: locationIdElement.value,
+    startDate: startDateElement.value,
+    endDate: endDateElement.value
+});
+
+startButton.onclick = () => {
+    chrome.runtime.sendMessage({ event: "onStart", prefs: getPrefs() });
 };
 
-startButton.onclick = function() {
-    sendCommand({ event: "onStart" });
+stopButton.onclick = () => {
+    chrome.runtime.sendMessage({ event: "onStop", prefs: getPrefs() });
 };
 
-stopButton.onclick = function() {
-    sendCommand({ event: "onStop" });
-};
+chrome.storage.local.get(["locationId","startDate","endDate"], (result) => {
+    const { locationId, startDate, endDate } = result;
+
+    if (locationId) {
+        locationIdElement.value = locationId;
+    }
+
+    if (startDate) {
+        startDateElement.value = startDate;
+    }
+
+    if (endDate) {
+        endDateElement.value = endDate;
+    }
+});

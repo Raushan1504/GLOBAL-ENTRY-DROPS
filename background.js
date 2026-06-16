@@ -1,24 +1,25 @@
-console.log("background service worker loaded");
+chrome.runtime.onMessage.addListener(data => {
 
-chrome.runtime.onMessage.addListener((data, sender, sendResponse) => {
-    console.log("background received message:", data, sender);
-
-    switch (data.event) {
+    const {event,prefs} = data;
+    switch (event) {
         case 'onStop':
-            console.log("On stop in background");
-            sendResponse({ status: 'stopped' });
+            handleOnStop()
             break;
 
         case 'onStart':
-            console.log("On start in background");
-            sendResponse({ status: 'started' });
+             handleOnStop(prefs)
             break;
 
         default:
-            console.log("background received unknown event:", data.event);
-            sendResponse({ status: 'unknown' });
             break;
     }
-
-    return true;
 });
+
+const handleOnStop = ()=>{
+    console.log("On Stop in the background")
+}
+
+const handleOnStop = (prefs)=>{
+     console.log("On Start in the background")
+}
+chrome.storage.local.set(prefs);
